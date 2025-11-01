@@ -1,3 +1,7 @@
+import { CiClock2 } from "react-icons/ci";
+import { CiCircleCheck } from "react-icons/ci";
+import { FaListCheck } from "react-icons/fa6";
+
 const TaskDashboard = () => {
   return (
     <div className="flex justify-center">
@@ -20,15 +24,18 @@ const TaskDashboard = () => {
           </div>
         </div>
         <div className="grid grid-cols-3 gap-4">
-          <section className="Done-bx relative bg-white/20 backdrop-blur-md rounded-xl p-4 text-center border border-white/30 shadow-lg">
+          <section className="Done-bx relative bg-white/20 backdrop-blur-md rounded-xl p-4 flex flex-col items-center border border-white/30 shadow-lg">
+            <CiCircleCheck className="text-2xl"/>
             <p className="text-3xl">0</p>
             <p className="opacity-80 text-xs">Done</p>
           </section>
-          <section className="Pending-bx relative bg-white/20 backdrop-blur-md rounded-xl p-4 text-center border border-white/30 shadow-lg">
+          <section className="Pending-bx relative bg-white/20 backdrop-blur-md rounded-xl p-4 flex flex-col items-center border border-white/30 shadow-lg">
+            <CiClock2  className="text-2xl"/>
             <p className="text-3xl">0</p>
             <p className="opacity-80 text-xs">Pending</p>
           </section>
-          <section className="Total-bx relative bg-white/20 backdrop-blur-md rounded-xl p-4 text-center border border-white/30 shadow-lg">
+          <section className="Total-bx relative bg-white/20 backdrop-blur-md rounded-xl p-4 flex flex-col items-center border border-white/30 shadow-lg">
+            <FaListCheck className="text-2xl"/>
             <p className="text-3xl">0</p>
             <p className="opacity-80 text-xs">Total</p>
           </section>

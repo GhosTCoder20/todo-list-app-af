@@ -1,3 +1,5 @@
+import { FaRegChartBar } from "react-icons/fa";
+
 const Selector = () => {
   return (
     <>
@@ -6,6 +8,7 @@ const Selector = () => {
           Tasks
         </button>
         <button data-state="inactive" className="focus-visible:border-[#a1a1a1] focus-visible:ring-[#a1a1a1]/50 focus-visible:outline-[#a1a1a1] text-black inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-xl border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1">
+          <FaRegChartBar className="text-lg"/>
           Staticts
         </button>
       </div>
