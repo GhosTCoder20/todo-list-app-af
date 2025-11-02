@@ -20,7 +20,7 @@ const MainHeader = () => {
           <span
             data-state="unchecked"
             data-slot="switch-thumb"
-            class="bg-[#fff] dark:data-[state=unchecked]:bg-[#0a0a0a] pointer-events-none block size-4 rounded-full ring-0 transition-transform data-[state=checked]:translate-x-[calc(100%-2px)] data-[state=unchecked]:translate-x-0"
+            class="bg-[#fff]  pointer-events-none block size-4 rounded-full ring-0 transition-transform data-[state=checked]:translate-x-[calc(100%-2px)] data-[state=unchecked]:translate-x-0"
           ></span>
         </button>
       </div>
