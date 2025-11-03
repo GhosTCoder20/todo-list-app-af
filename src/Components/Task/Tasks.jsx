@@ -1,5 +1,5 @@
 import ShowTasks from "./Show";
-import Selector from "./Selector";
+import Selector from "./MainSelector";
 import { CiFilter } from "react-icons/ci";
 import { IoIosArrowDown } from "react-icons/io";
 

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const LoginBtn = () => {
   return (
     <div className="flex">
       <Link className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-sm text-sm font-medium transition-all hover:text-accent-foreground h-9 px-4 py-2 has:[&_svg]:px-3 text-grey-600 dark:text-[#A0A0A0] hover:bg-grey-100 hover:text-black dark:hover:bg-[#2A2A2]">Login</Link>
@@ -10,4 +10,4 @@ const Login = () => {
     </div>
   );
 };
-export default Login;
+export default LoginBtn;

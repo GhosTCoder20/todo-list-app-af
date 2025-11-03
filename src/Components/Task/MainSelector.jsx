@@ -1,6 +1,6 @@
 import { FaRegChartBar } from "react-icons/fa";
 
-const Selector = () => {
+const MainSelector = () => {
   return (
     <>
       <div className="flex ml-16 text-[#717182] h-9 w-fit rounded-xl items-center justify-center bg-white/80 backdrop-blur-xl border-0 shadow-lg p-1">
@@ -15,4 +15,4 @@ const Selector = () => {
     </>
   );
 };
-export default Selector;
+export default MainSelector;
