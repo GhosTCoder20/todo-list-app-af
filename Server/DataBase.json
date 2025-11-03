@@ -1,0 +1,49 @@
+{
+    "task":[
+        {
+            "title":"Playing games",
+            "category":2,
+            "date":"03/05/2025",
+            "id":1
+        },
+        {
+            "title":"go jogging",
+            "category":1,
+            "date":"04/05/2025",
+            "id":2
+        },
+        {
+            "title":"make dinner",
+            "category":2,
+            "date":"04/05/2025",
+            "id":3
+        }
+    ],
+    "Category":[
+        {
+            "name":"Personal",
+            "colo":"red",
+            "id":1
+        },
+        {
+            "name":"Home",
+            "colo":"brown",
+            "id":2
+        },
+        {
+            "name":"Work",
+            "colo":"pink",
+            "id":3
+        },
+        {
+            "name":"Important",
+            "colo":"blue",
+            "id":4
+        },
+        {
+            "name":"Special Days",
+            "colo":"yellow",
+            "id":5
+        }
+    ]
+}
