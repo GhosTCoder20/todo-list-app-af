@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import { MainHeader, TaskDashboard, AddTask, Tasks } from "./Components";
-import { getAllTasks, getAllCategory } from "./Services/taskServices";
+import { getAllTasks, getAllCategory, createTask } from "./Services/taskServices";
 import { Link, useNavigate } from "react-router";
-import { Route,Routes } from "react-router";
+import { Route, Routes } from "react-router";
 
 function App() {
   const [loading, setLoading] = useState(false);
   const [ForceRender, setForceRender] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [category, setCategory] = useState([]);
+  const [isOpened, setIsOpened] = useState(false);
   const [task, setTask] = useState({
     title: "",
     category: "",
@@ -17,6 +18,7 @@ function App() {
   });
 
   const navigate = useNavigate();
+  const opened = () => setIsOpened(!isOpened);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,8 +44,8 @@ function App() {
       try {
         setLoading(true);
 
-        const { data: tasksData } = await getAllTasks();
-
+        const { data: task } = await getAllTasks();
+        setTasks(task);
         setLoading(false);
       } catch (error) {
         console.log(error.massage);
@@ -58,14 +60,20 @@ function App() {
   const createNewTask = async (event) => {
     event.preventDefault();
     try {
-      const { status } = await createNewTask(task);
+      const { status } = await createTask(task);
       if (status === 201) {
-        setTask({});
+        setTask({
+          title: "",
+          category: "",
+          date: "",
+        });
         setForceRender(!ForceRender);
         navigate("/");
       }
+      setIsOpened(false);
     } catch (error) {
-      console.log(error.massage);
+      console.error("Error creating task:", error.message);
+      setIsOpened(false);
     }
   };
 
@@ -76,14 +84,16 @@ function App() {
     });
   };
 
+  console.log(isOpened);
+
   return (
     <div className="App min-h-screen bg-gradient-to-br from-[#F8F9FB] via-[#E8EAF0] to-[#F8F9FB] transition-colors duration-500  space-y-6">
       <MainHeader />
       <TaskDashboard />
-      <Tasks loading={loading} tasks={tasks} />
+      <Tasks loading={loading} tasks={tasks} categories={category} />
       <Routes>
         <Route
-          path="/AddTasks"
+          path="/AddTask"
           element={
             <AddTask
               loading={loading}
@@ -91,6 +101,11 @@ function App() {
               setTaskInfo={setTaskInfo}
               category={category}
               createNewTask={createNewTask}
+              isOpened={isOpened}
+              onCancel={() => {
+                setIsOpened(false);
+                navigate('/');
+              }}
             />
           }
         />
@@ -98,6 +113,7 @@ function App() {
       <div className=" fixed right-6 bottom-20 lg:bottom-8 lg:right-8 z-40 p-8 rounded-full">
         <Link
           to={"/AddTask"}
+          onClick={opened}
           className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-lg font-medium h-16 w-16 rounded-full shadow-2xl bg-gradient-to-br from-[#00C2A8] via-[#00B89F] to-[#9B6BFF] hover:shadow-[0_0_30px_rgba(0,194,168,0.5)] hover:rotate-90  hover:scale-[1.2] text-white border-4 border-white/20 backdrop-blur-xl transition-all duration-300"
         >
           +

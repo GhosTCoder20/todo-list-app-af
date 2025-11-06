@@ -1,12 +1,14 @@
 import ShowTasks from "./Show";
-import Selector from "./MainSelector";
+import MainSelector from "./MainSelector";
 import { CiFilter } from "react-icons/ci";
 import { IoIosArrowDown } from "react-icons/io";
 
-const Tasks = () => {
+const Tasks = ({ loading, tasks, categories }) => {
+  
+
   return (
     <>
-      <Selector />
+      <MainSelector />
       <div className="ml-16 inline-flex flex-wrap items-center gap-3 p-4 bg-white/80 backdrop-blur-xl rounded-2xl shadow-lg border border-gray-100/50">
         <div className="flex ">
           <CiFilter className="w-6 h-6 text-gray-400" />
@@ -47,12 +49,18 @@ const Tasks = () => {
           <input type="date" name="Date" id="Date" />
         </div>
       </div>
-      <div className="ml-16 ">
+      <div className="mx-16 ">
         <h1 className="mb-8">
-          <p className="inline">0</p> Tasks
+          <p className="inline">{tasks.length}</p> Tasks
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <ShowTasks />
+          {loading ? (
+            <h1>Loading....</h1>
+          ) : tasks.length > 0 ? (
+            <ShowTasks tasks={tasks} categories={categories} />
+          ) : (
+            <h1 className="text-gray-500">No tasks found. Create your first task!</h1>
+          )}
         </div>
       </div>
     </>
