@@ -1,0 +1,66 @@
+{
+  "task": [
+    {
+      "title": "Playing games",
+      "category": "3",
+      "date": "2024-08-16",
+      "id": "1",
+      "completed": false
+    },
+    {
+      "title": "go jogging",
+      "category": "1",
+      "date": "2025-11-09",
+      "id": "2",
+      "completed": false
+    },
+    {
+      "title": "make dinner",
+      "category": "2",
+      "date": "2025-10-19",
+      "id": "3",
+      "completed": false
+    },
+    {
+      "id": "6863",
+      "title": "یبسیب",
+      "category": "",
+      "date": "2025-11-17",
+      "completed": false
+    },
+    {
+      "id": "e4e8",
+      "title": "fdsfds",
+      "category": "2",
+      "date": "2025-11-10",
+      "completed": false
+    }
+  ],
+  "Category": [
+    {
+      "name": "Personal",
+      "colo": "red",
+      "id": "1"
+    },
+    {
+      "name": "Home",
+      "colo": "brown",
+      "id": "2"
+    },
+    {
+      "name": "Work",
+      "colo": "pink",
+      "id": "3"
+    },
+    {
+      "name": "Important",
+      "colo": "blue",
+      "id": "4"
+    },
+    {
+      "name": "Special Days",
+      "colo": "yellow",
+      "id": "5"
+    }
+  ]
+}
