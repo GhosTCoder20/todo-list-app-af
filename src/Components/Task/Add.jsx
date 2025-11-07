@@ -1,5 +1,5 @@
-
-import { useState } from 'react';
+import { IoIosArrowDown } from "react-icons/io";
+import { useState } from "react";
 
 const AddTask = ({
   loading,
@@ -8,7 +8,7 @@ const AddTask = ({
   category,
   createNewTask,
   isOpened,
-  onCancel
+  onCancel,
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   return (
@@ -27,9 +27,7 @@ const AddTask = ({
           </p>
         </div>
         <div className="flex flex-col">
-          <label className="text-sm font-medium">
-            Task Title
-          </label>
+          <label className="text-sm font-medium">Task Title</label>
           <input
             type="text"
             value={task.title}
@@ -39,20 +37,22 @@ const AddTask = ({
             placeholder="Enter task title...."
             className="placeholder:text-[#717182] transition-all duration-300 outline-none h-9 w-full rounded-md border px-3 py-1 my-2 text-base bg-[#f3f3f5] md:text-sm focus-visible:border-[#a1a1a1] focus-visible:ring-[#a1a1a1]/50 focus-visible:ring-[3px] "
           />
-          <label className="text-sm font-medium mb-2">
-            Category
-          </label>
+          <label className="text-sm font-medium mb-2">Category</label>
           <div className="relative">
             <button
               type="button"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               className="focus-visible:ring-[#a1a1a1]/50 flex w-full items-center justify-between gap-2 rounded-md border bg-[#f3f3f5] px-3 py-2 my-2 text-sm whitespace-nowrap focus-visible:border-[#a1a1a1]"
             >
-              {category.find(c => c.id.toString() === task.category)?.name || 'Select category'}
-              <span className="ml-2">▼</span>
+              {category.find((c) => c.id.toString() === task.category)?.name ||
+                "Select category"}
+              <span className="ml-2">
+                {" "}
+                <IoIosArrowDown />
+              </span>
             </button>
             {isDropdownOpen && (
-              <div className="absolute z-50 w-full mt-1 bg-white border rounded-md shadow-lg">
+              <div className="absolute  w-full mt-1 bg-white border rounded-md shadow-lg top-[80%]">
                 {category.length > 0 &&
                   category.map((c) => (
                     <button
@@ -60,14 +60,14 @@ const AddTask = ({
                       type="button"
                       onClick={() => {
                         setTaskInfo({
-                          target: { name: 'category', value: c.id.toString() }
+                          target: { name: "category", value: c.id.toString() },
                         });
                         setIsDropdownOpen(false);
                       }}
                       className="flex items-center w-full px-3 py-2 text-sm hover:bg-gray-100"
                     >
-                      <div 
-                        className="w-6 h-6 mr-2 rounded" 
+                      <div
+                        className="w-4 h-4 mr-2 rounded-full shadow-md"
                         style={{ backgroundColor: c.colo }}
                       />
                       {c.name}
@@ -76,9 +76,7 @@ const AddTask = ({
               </div>
             )}
           </div>
-          <label className="text-sm font-medium mb-2">
-            Due Date
-          </label>
+          <label className="text-sm font-medium mb-2">Due Date</label>
           <input
             type="date"
             name="date"

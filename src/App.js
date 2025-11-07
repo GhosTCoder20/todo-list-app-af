@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import { MainHeader, TaskDashboard, AddTask, Tasks } from "./Components";
-import { getAllTasks, getAllCategory, createTask } from "./Services/taskServices";
+import {
+  getAllTasks,
+  getAllCategory,
+  createTask,
+  updateTask,
+} from "./Services/taskServices";
 import { Link, useNavigate } from "react-router";
 import { Route, Routes } from "react-router";
 
@@ -17,9 +22,10 @@ function App() {
     date: "",
   });
 
+  //Navigate after fetching tasks
   const navigate = useNavigate();
-  const opened = () => setIsOpened(!isOpened);
 
+  //Fetch all tasks and cetegories for showing
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -84,13 +90,30 @@ function App() {
     });
   };
 
-  console.log(isOpened);
+  // Toggle task completed state (optimistic UI + server update)
+  const toggleTaskComplete = async (taskId) => {
+    const existing = tasks.find(t => t.taskId === taskId);
+    if (!existing) return;
+
+    const updated = { ...existing, completed: !existing.completed };
+
+    // optimistic update
+    setTasks(prev => prev.map(t => (t.id === taskId ? updated : t)));
+
+    try {
+      await updateTask(updated, taskId);
+    } catch (err) {
+      console.error('Failed to update task:', err?.message || err);
+      // rollback
+      setTasks(prev => prev.map(t => (t.id === taskId ? existing : t)));
+    }
+  };
 
   return (
     <div className="App min-h-screen bg-gradient-to-br from-[#F8F9FB] via-[#E8EAF0] to-[#F8F9FB] transition-colors duration-500  space-y-6">
       <MainHeader />
       <TaskDashboard />
-      <Tasks loading={loading} tasks={tasks} categories={category} />
+  <Tasks loading={loading} tasks={tasks} categories={category} onToggleComplete={toggleTaskComplete} />
       <Routes>
         <Route
           path="/AddTask"
@@ -104,7 +127,7 @@ function App() {
               isOpened={isOpened}
               onCancel={() => {
                 setIsOpened(false);
-                navigate('/');
+                navigate("/");
               }}
             />
           }
@@ -113,7 +136,7 @@ function App() {
       <div className=" fixed right-6 bottom-20 lg:bottom-8 lg:right-8 z-40 p-8 rounded-full">
         <Link
           to={"/AddTask"}
-          onClick={opened}
+          onClick={() => setIsOpened(!isOpened)}
           className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-lg font-medium h-16 w-16 rounded-full shadow-2xl bg-gradient-to-br from-[#00C2A8] via-[#00B89F] to-[#9B6BFF] hover:shadow-[0_0_30px_rgba(0,194,168,0.5)] hover:rotate-90  hover:scale-[1.2] text-white border-4 border-white/20 backdrop-blur-xl transition-all duration-300"
         >
           +

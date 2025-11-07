@@ -26,7 +26,11 @@ export const updateTask=(task,taskId)=>{
     const url=`${SERVER_URL}/task/${taskId}`;
     return axios.put(url,task);
 }
-export const deleteTask=(task,taskId)=>{
+export const completedTask=(taskId)=>{
+    const url=`${SERVER_URL}/task/${taskId}`;
+    return axios.put(url);
+}
+export const deleteTask=(taskId)=>{
     const url=`${SERVER_URL}/task/${taskId}`;
     return axios.delete(url);
 }
