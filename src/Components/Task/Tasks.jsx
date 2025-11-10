@@ -3,7 +3,7 @@ import MainSelector from "./MainSelector";
 import { CiFilter } from "react-icons/ci";
 import { IoIosArrowDown } from "react-icons/io";
 
-const Tasks = ({ loading, tasks, categories, onToggleComplete }) => {
+const Tasks = ({ loading, tasks, categories, onToggleComplete ,onDelete }) => {
   
 
   return (
@@ -57,7 +57,7 @@ const Tasks = ({ loading, tasks, categories, onToggleComplete }) => {
           {loading ? (
             <h1>Loading....</h1>
           ) : tasks.length > 0 ? (
-            <ShowTasks tasks={tasks} categories={categories} onToggleComplete={onToggleComplete} />
+            <ShowTasks tasks={tasks} categories={categories} onToggleComplete={onToggleComplete} onDelete={onDelete}/>
           ) : (
             <h1 className="text-gray-500">No tasks found. Create your first task!</h1>
           )}

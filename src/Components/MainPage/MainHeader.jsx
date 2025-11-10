@@ -1,6 +1,6 @@
 import { WiDaySunny } from "react-icons/wi";
 import { LuMoon } from "react-icons/lu";
-import Login from "./Login";
+import LoginBtn from "./LoginBtn";
 import { CiCircleCheck } from "react-icons/ci";
 
 const MainHeader = () => {
@@ -37,7 +37,7 @@ const MainHeader = () => {
           </p>
         </div>
       </div>
-      <Login />
+      <LoginBtn />
     </header>
   );
 };

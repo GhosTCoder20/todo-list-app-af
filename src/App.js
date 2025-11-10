@@ -6,6 +6,7 @@ import {
   getAllCategory,
   createTask,
   updateTask,
+  deleteTask,
 } from "./Services/taskServices";
 import { Link, useNavigate } from "react-router";
 import { Route, Routes } from "react-router";
@@ -20,6 +21,7 @@ function App() {
     title: "",
     category: "",
     date: "",
+    completed: false,
   });
 
   //Navigate after fetching tasks
@@ -42,6 +44,7 @@ function App() {
     };
 
     fetchData();
+    console.log("build");
   }, []);
 
   // After creating task
@@ -60,7 +63,10 @@ function App() {
     };
 
     fetchData();
+    console.log("Update");
   }, [ForceRender]);
+
+  //------------------------All tasks Events------------------------[START]
 
   // Create and post new task Database
   const createNewTask = async (event) => {
@@ -72,6 +78,7 @@ function App() {
           title: "",
           category: "",
           date: "",
+          completed: false,
         });
         setForceRender(!ForceRender);
         navigate("/");
@@ -92,28 +99,49 @@ function App() {
 
   // Toggle task completed state (optimistic UI + server update)
   const toggleTaskComplete = async (taskId) => {
-    const existing = tasks.find(t => t.taskId === taskId);
-    if (!existing) return;
+    const existing = tasks.find((task) =>
+      taskId === task.id ? task : console.log("Not Fund")
+    );
+    console.log("existing complete", existing);
 
     const updated = { ...existing, completed: !existing.completed };
 
     // optimistic update
-    setTasks(prev => prev.map(t => (t.id === taskId ? updated : t)));
+    setTasks((prev) => prev.map((t) => (t.id === taskId ? updated : t)));
 
     try {
       await updateTask(updated, taskId);
     } catch (err) {
-      console.error('Failed to update task:', err?.message || err);
+      console.error("Failed to update task:", err?.message || err);
       // rollback
-      setTasks(prev => prev.map(t => (t.id === taskId ? existing : t)));
+      setTasks((prev) => prev.map((t) => (t.id === taskId ? existing : t)));
     }
   };
+  //Delete tasks
+  const onDelete = (taskId) => {
+    deleteTask(taskId);
+    setForceRender((prevforceRender) => !prevforceRender);
+  };
+
+  const completedTasks = tasks.filter((t) => (t.completed === true));
+
+  const pendingTasks = tasks.filter((t) => (t.completed === false));
+
+  //------------------------All tasks Events------------------------[END]
 
   return (
-    <div className="App min-h-screen bg-gradient-to-br from-[#F8F9FB] via-[#E8EAF0] to-[#F8F9FB] transition-colors duration-500  space-y-6">
+    <div className="App min-h-screen bg-gradient-to-br from-[#F8F9FB] via-[#E8EAF0] to-[#F8F9FB] transition-colors duration-500  space-y-6 pb-10">
       <MainHeader />
-      <TaskDashboard />
-  <Tasks loading={loading} tasks={tasks} categories={category} onToggleComplete={toggleTaskComplete} />
+      <TaskDashboard tasks={tasks} completedTasks={completedTasks} pendingTasks={pendingTasks} />
+      <Tasks
+        loading={loading}
+        tasks={tasks}
+        categories={category}
+        onToggleComplete={toggleTaskComplete}
+        onDelete={onDelete}
+        pendingTasks={pendingTasks}
+        completedTasks={completedTasks}
+      />
       <Routes>
         <Route
           path="/AddTask"
@@ -133,7 +161,7 @@ function App() {
           }
         />
       </Routes>
-      <div className=" fixed right-6 bottom-20 lg:bottom-8 lg:right-8 z-40 p-8 rounded-full">
+      <div className=" fixed right-6 bottom-10 lg:bottom-5 lg:right-8 z-40 p-2 rounded-full">
         <Link
           to={"/AddTask"}
           onClick={() => setIsOpened(!isOpened)}

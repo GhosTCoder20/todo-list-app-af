@@ -1,4 +1,4 @@
-export {default as LoginBtn} from './MainPage/Login';
+export {default as LoginBtn} from './MainPage/LoginBtn';
 export {default as MainHeader} from './MainPage/MainHeader';
 export {default as TaskDashboard} from './MainPage/TaskDasboard';
 export {default as AddTask} from './Task/Add';
